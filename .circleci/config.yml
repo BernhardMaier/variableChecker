@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12.18.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run:
+          name: Install Gulp as global
+          command: 'sudo npm install -g gulp'
+      - run:
+          name: Setup NPM Configuration
+          command: 'echo "//registry.npmjs.org/:_authToken=92be9150-f928-4722-be7d-66c705bbde4d" > .npmrc'
+      - run:
+          name: Install Dependencies
+          command: 'npm install'
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: npm test

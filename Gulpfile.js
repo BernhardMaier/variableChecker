@@ -5,6 +5,7 @@ const gulp = require('gulp');
 const mocha = require('gulp-mocha');
 const shell = require('gulp-shell');
 
+const esl = new ESLint({ errorOnUnmatchedPattern: false });
 const commands = {
   start: 'node service',
   test: 'nyc --reporter=lcovonly --reporter=text gulp mocha'
@@ -16,15 +17,10 @@ const paths = {
 
 const taskStart = async () => (shell.task([ commands.start ]))();
 const taskTest = async () => (shell.task([ commands.test ]))();
+const taskLint = async () => console.log((await esl.loadFormatter('stylish')).format((await esl.lintFiles(paths.analyze)))); // eslint-disable-line
 const taskMocha = async () => gulp.src(paths.tests, { read: false })
                                   .pipe(mocha({ exit: true, timeout: 25000 }))
                                   .on('error', console.error); // eslint-disable-line
-
-const taskLint = async () => {
-  const eslint = new ESLint({ errorOnUnmatchedPattern: false });
-
-  console.log((await eslint.loadFormatter('stylish')).format((await eslint.lintFiles(paths.analyze)))); // eslint-disable-line
-};
 
 exports.start = gulp.series(taskStart);
 exports.test = gulp.series(taskTest);

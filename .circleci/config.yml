@@ -2,11 +2,11 @@ version: 2.1
 workflows:
   testing:
     jobs:
-      - runTests:
+      - run-tests:
           context:
             - Default
 jobs:
-  runTests:
+  run-tests:
     docker:
       - image: circleci/node:12.18.1
     working_directory: ~/repo
@@ -21,7 +21,7 @@ jobs:
           command: 'echo $npmAccessToken'
       - run:
           name: Install gulp globally
-          command: 'npm i -g gulp'
+          command: 'sudo npm i -g gulp'
       - run:
           name: Install dependencies
           command: 'npm i'

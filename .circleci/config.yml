@@ -1,6 +1,12 @@
-version: 2
+version: 2.1
+workflows:
+  testing:
+    jobs:
+      - runTests:
+        context:
+          - Default
 jobs:
-  build:
+  runTests:
     docker:
       - image: circleci/node:12.18.1
     working_directory: ~/repo
@@ -8,16 +14,21 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run:
-          name: Install Gulp as global
-          command: 'sudo npm install -g gulp'
+          name: npm acces token stored in default context
+          command: 'echo $npmAccessToken'
       - run:
-          name: Install Dependencies
-          command: 'npm install'
+          name: Install gulp globally
+          command: 'npm i -g gulp'
+      - run:
+          name: Install dependencies
+          command: 'npm i'
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm test
+      - run:
+          name: Run tests
+          command: 'npm test'

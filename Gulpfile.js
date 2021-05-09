@@ -23,7 +23,7 @@ const taskMocha = async () => gulp.src(paths.tests, { read: false })
                                   .on('error', console.error); // eslint-disable-line
 
 exports.start = gulp.series(taskStart);
-exports.test = gulp.series(taskLint, taskTest);
+exports.test = gulp.series(taskTest);
 exports.mocha = gulp.series(taskMocha);
 exports.lint = gulp.series(taskLint);
 exports.default = gulp.series(taskLint, taskTest);

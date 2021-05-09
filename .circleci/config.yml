@@ -3,8 +3,8 @@ workflows:
   testing:
     jobs:
       - runTests:
-        context:
-          - Default
+          context:
+            - Default
 jobs:
   runTests:
     docker:

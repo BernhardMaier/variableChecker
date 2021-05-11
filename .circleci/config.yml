@@ -24,6 +24,8 @@ workflows:
           filters:
             tags:
               only: /^v.*/
+            branches:
+              ignore: /^.*/
 
 defaults: &defaults
   working_directory: ~/repo

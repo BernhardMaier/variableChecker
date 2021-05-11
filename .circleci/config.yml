@@ -24,8 +24,6 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-            branches:
-              ignore: /^.*/
 
 defaults: &defaults
   working_directory: ~/repo
@@ -81,4 +79,4 @@ jobs:
           command: 'echo "//registry.npmjs.org/:_authToken=$npm_publish_token" > ~/repo/.npmrc'
       - run:
           name: Publish on npm
-          command: 'npm publish'
+          command: 'echo "npm publish"' #'npm publish'

@@ -3,10 +3,6 @@ version: 2.1
 context: &context
   context:
     - Default
-deployment_only: &deployment_only
-  filters:
-    tags:
-      only: /^v.*/
 
 workflows:
   ci_cd:
@@ -23,9 +19,11 @@ workflows:
             - linting
       - publish:
           <<: *context
-          <<: *deployment_only
           requires:
             - testing
+          filters:
+            tags:
+              only: /^v.*/
 
 defaults: &defaults
   working_directory: ~/repo

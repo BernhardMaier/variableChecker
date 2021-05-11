@@ -1,0 +1,7 @@
+.circleci
+.nyc_output
+coverage
+doc
+test
+gulpfile.js
+.eslintrc

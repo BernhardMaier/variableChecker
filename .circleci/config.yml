@@ -5,8 +5,8 @@ context: &context
     - Default
 deployment_only: &deployment_only
   filters:
-    branches:
-      only: main
+    tags:
+      only: /^v.*/
 
 workflows:
   ci_cd:
@@ -26,11 +26,6 @@ workflows:
           <<: *deployment_only
           requires:
             - testing
-      - tagging:
-          <<: *context
-          <<: *deployment_only
-          requires:
-            - publish
 
 defaults: &defaults
   working_directory: ~/repo
@@ -87,11 +82,3 @@ jobs:
       - run:
           name: Publish on npm
           command: 'npm publish'
-  tagging:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Add git tag
-          command: 'npm run tag'

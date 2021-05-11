@@ -1,43 +1,43 @@
 {
-  "name": "variablechecker",
-  "version": "0.0.1",
-  "description": "Simple helper to do variable checks and keep complexity low",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "gulp test",
-    "lint": "gulp lint",
-    "fix": "eslint './service/**' './test/**' --fix",
-    "ri": "rm -rf node_modules package-lock.json && npm i"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BernhardMaier/variableChecker.git"
-  },
-  "keywords": [
-    "node",
-    "nodejs",
-    "npm",
-    "helper",
-    "variable",
-    "checker",
-    "variablechecker"
-  ],
-  "author": "Bernhard Maier <mail@bernhard-maier.net> (bernhard-maier.net)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/BernhardMaier/variableChecker/issues"
-  },
-  "homepage": "https://github.com/BernhardMaier/variableChecker#readme",
-  "devDependencies": {
-    "assertthat": "5.2.5",
-    "eslint": "7.22.0",
-    "gulp": "4.0.2",
-    "gulp-mocha": "7.0.2",
-    "gulp-shell": "0.8.0",
-    "nyc": "15.1.0",
-    "validate": "5.1.0"
-  },
-  "dependencies": {
-    "require-dir": "1.2.0"
-  }
+	"name": "variablechecker",
+	"version": "0.0.1",
+	"description": "Simple helper to do variable checks and keep complexity low",
+	"main": "src/index.js",
+	"scripts": {
+		"test": "gulp test",
+		"lint": "gulp lint",
+		"fix": "eslint './service/**' './test/**' --fix",
+		"ri": "rm -rf node_modules package-lock.json && npm i"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/BernhardMaier/variableChecker.git"
+	},
+	"keywords": [
+		"node",
+		"nodejs",
+		"npm",
+		"helper",
+		"variable",
+		"checker",
+		"variablechecker"
+	],
+	"author": "Bernhard Maier <mail@bernhard-maier.net> (bernhard-maier.net)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/BernhardMaier/variableChecker/issues"
+	},
+	"homepage": "https://github.com/BernhardMaier/variableChecker#readme",
+	"devDependencies": {
+		"assertthat": "^6.0.0",
+		"eslint": "^7.26.0",
+		"gulp": "^4.0.2",
+		"gulp-mocha": "^8.0.0",
+		"gulp-shell": "^0.8.0",
+		"nyc": "^15.1.0",
+		"validate": "^5.1.0"
+	},
+	"dependencies": {
+		"require-dir": "^1.2.0"
+	}
 }

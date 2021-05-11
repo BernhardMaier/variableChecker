@@ -7,7 +7,8 @@
 		"test": "gulp test",
 		"lint": "gulp lint",
 		"fix": "eslint './service/**' './test/**' --fix",
-		"ri": "rm -rf node_modules && npm i"
+		"ri": "rm -rf node_modules && npm i",
+		"tag": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags"
 	},
 	"repository": {
 		"type": "git",

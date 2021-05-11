@@ -1,42 +1,37 @@
 version: 2.1
+
+context: &context
+  context:
+    - Default
+
 workflows:
-  test:
+  ci_cd:
     jobs:
       - build:
-          context:
-            - Default
-          filters:
-            branches:
-              ignore: main
+          <<: *context
       - linting:
+          <<: *context
           requires:
             - build
       - testing:
+          <<: *context
           requires:
             - linting
-  deploy:
-    jobs:
-      - build:
-          context:
-            - Default
+      - publish:
+          <<: *context
+          requires:
+            - testing
           filters:
             branches:
               only: main
             tags:
               only: /^v.*/
-      - linting:
-          requires:
-            - build
-      - testing:
-          requires:
-            - linting
-      - publish:
-          requires:
-            - testing
+
 defaults: &defaults
   working_directory: ~/repo
   docker:
     - image: circleci/node:12.18.1
+
 jobs:
   build:
     <<: *defaults

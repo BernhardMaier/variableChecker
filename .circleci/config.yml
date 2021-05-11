@@ -1,15 +1,45 @@
 version: 2.1
 workflows:
-  github-pullrequest:
+  test:
     jobs:
-      - check-quality-gateways:
+      - build:
           context:
             - Default
+          filters:
+            branches:
+              ignore: main
+      - linting:
+          requires:
+            - build
+      - testing:
+          requires:
+            - linting
+  deploy:
+    jobs:
+      - build:
+          context:
+            - Default
+          filters:
+            branches:
+              only: main
+            tags:
+              only: /^v.*/
+      - linting:
+          requires:
+            - build
+      - testing:
+          requires:
+            - linting
+      - publish:
+          requires:
+            - testing
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:12.18.1
 jobs:
-  check-quality-gateways:
-    docker:
-      - image: circleci/node:12.18.1
-    working_directory: ~/repo
+  build:
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -17,11 +47,8 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
       - run:
-          name: Echo npm access token stored in default context
-          command: 'echo $npmAccessToken'
-      - run:
-          name: Install gulp globally
-          command: 'sudo npm i -g gulp'
+          name: Authenticate with registry
+          command: 'echo "//registry.npmjs.org/:_authToken=$npm_read_token" > ~/repo/.npmrc'
       - run:
           name: Install nodejs dependencies
           command: 'npm i'
@@ -29,9 +56,34 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
+  linting:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
       - run:
           name: Run linting
           command: 'npm run lint'
+  testing:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
       - run:
           name: Run unit tests
           command: 'npm run test'
+  publish:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Authenticate with registry
+          command: 'echo "//registry.npmjs.org/:_authToken=$npm_publish_token" > ~/repo/.npmrc'
+      - run:
+          name: Publish on npm
+          command: 'npm publish'

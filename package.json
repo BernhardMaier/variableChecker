@@ -7,7 +7,7 @@
 		"test": "gulp test",
 		"lint": "gulp lint",
 		"fix": "eslint './service/**' './test/**' --fix",
-		"ri": "rm -rf node_modules package-lock.json && npm i"
+		"ri": "rm -rf node_modules && npm i"
 	},
 	"repository": {
 		"type": "git",

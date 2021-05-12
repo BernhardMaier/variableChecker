@@ -3,32 +3,55 @@ version: 2.1
 context: &context
   context:
     - Default
-
-workflows:
-  ci_cd:
-    jobs:
-      - build:
-          <<: *context
-      - linting:
-          <<: *context
-          requires:
-            - build
-      - testing:
-          <<: *context
-          requires:
-            - linting
-      - publish:
-          <<: *context
-          requires:
-            - testing
-          filters:
-            tags:
-              only: /^v.*/
-
+tagging: &tagging
+  filters:
+    tags:
+      only: /^v.*/
+notMain: &notMain
+  filters:
+    branches:
+      ignore: main
 defaults: &defaults
   working_directory: ~/repo
   docker:
     - image: circleci/node:12.18.1
+
+workflows:
+  build_and_test:
+    jobs:
+      - build:
+          <<: *context
+          <<: *notMain
+      - lint:
+          <<: *context
+          <<: *notMain
+          requires:
+            - build
+      - test:
+          <<: *context
+          <<: *notMain
+          requires:
+            - lint
+  build_and_deploy:
+    jobs:
+      - build:
+          <<: *context
+          <<: *tagging
+      - lint:
+          <<: *context
+          <<: *tagging
+          requires:
+            - build
+      - test:
+          <<: *context
+          <<: *tagging
+          requires:
+            - lint
+      - deploy:
+          <<: *context
+          <<: *tagging
+          requires:
+            - test
 
 jobs:
   build:
@@ -53,15 +76,15 @@ jobs:
           root: ~/repo
           paths:
             - .
-  linting:
+  lint:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/repo
       - run:
-          name: Run linting
+          name: Run lint
           command: 'npm run lint'
-  testing:
+  test:
     <<: *defaults
     steps:
       - attach_workspace:
@@ -69,7 +92,7 @@ jobs:
       - run:
           name: Run unit tests
           command: 'npm run test'
-  publish:
+  deploy:
     <<: *defaults
     steps:
       - attach_workspace:

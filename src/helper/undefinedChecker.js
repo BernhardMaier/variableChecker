@@ -5,7 +5,7 @@ module.exports = async (variable, variableName) => {
     (async () => {
       try {
         if (variable === undefined) {
-          reject(`Variable "${variableName}" is undefined!`);
+          return reject(`Variable "${variableName}" is undefined!`);
         }
 
         resolve();

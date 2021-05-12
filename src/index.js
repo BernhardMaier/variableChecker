@@ -7,6 +7,10 @@ module.exports = async (variable, variableName, validation) => {
   return new Promise((resolve, reject) => {
     (async () => {
       try {
+        if (!variableName) {
+          variableName = '';
+        }
+
         if (!validation) {
           validation = {};
         }

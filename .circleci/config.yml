@@ -7,6 +7,8 @@ tagging: &tagging
   filters:
     tags:
       only: /^v.*/
+    branches:
+      only: main
 notMain: &notMain
   filters:
     branches:

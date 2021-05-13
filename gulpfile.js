@@ -17,10 +17,10 @@ const paths = {
 
 const taskStart = async () => (shell.task([ cmd.start ]))();
 const taskTest = async () => (shell.task([ cmd.test ]))();
-const taskLint = async () => console.log((await esl.loadFormatter('stylish')).format((await esl.lintFiles(paths.analyze)))); // eslint-disable-line
+const taskLint = async () => console.log((await esl.loadFormatter('stylish')).format((await esl.lintFiles(paths.analyze)))); // eslint-disable-line no-console
 const taskMocha = async () => gulp.src(paths.tests, { read: false })
                                   .pipe(mocha({ exit: true, timeout: 25000 }))
-                                  .on('error', console.error); // eslint-disable-line
+                                  .on('error', console.error); // eslint-disable-line no-console
 
 exports.start = gulp.series(taskStart);
 exports.test = gulp.series(taskTest);

@@ -10,7 +10,7 @@ const variablechecker = require('../src/index.js');
 
     console.log('DONE'); // eslint-disable-line no-console
   } catch (err) {
-    console.log('DONE'); // eslint-disable-line no-console
+    console.log(err); // eslint-disable-line no-console
   }
 })();
 

@@ -1,7 +1,6 @@
 'use strict';
 
-const path = require('path');
-const helper = require(path.resolve('./src/helper'));
+const helper = require('./helper');
 
 module.exports = async (variable, variableName, validation) => {
   return new Promise((resolve, reject) => {

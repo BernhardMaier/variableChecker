@@ -1,27 +1,13 @@
 'use strict';
 
-const helper = require('./helper');
+const functions = require('./functions');
+const functionExports = {};
+const functionKeys = Object.keys(functions);
+let functionKey;
 
-module.exports = async (variable, variableName, validation) => {
-  return new Promise((resolve, reject) => {
-    (async () => {
-      try {
-        if (!variableName) {
-          variableName = '';
-        }
+for (let i = 0; i < functionKeys.length; i++) {
+  functionKey = functionKeys[i];
+  functionExports[functionKey] = functions[functionKey];
+}
 
-        if (!validation) {
-          validation = {};
-        }
-
-        await helper.undefinedChecker(variable, variableName);
-        await helper.conditionChecker(variable, variableName, validation.condition);
-        await helper.schemaChecker(variable, variableName, validation.schema);
-
-        resolve();
-      } catch (err) {
-        reject(err);
-      }
-    })();
-  });
-};
+module.exports = functionExports;

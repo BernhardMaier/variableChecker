@@ -5,6 +5,7 @@
 	// List of extensions which should be recommended for users of this workspace.
 	"recommendations": [
 		"akamud.vscode-theme-onedark",
+		"akamud.vscode-theme-onelight",
 		"christian-kohler.npm-intellisense",
 		"christian-kohler.path-intellisense",
 		"coenraads.bracket-pair-colorizer-2",

@@ -1,6 +1,6 @@
 'use strict';
 
-const helper = require('../helper');
+const helpers = require('../helpers');
 
 module.exports = async (variable, variableName, validation) => {
   return new Promise((resolve, reject) => {
@@ -14,9 +14,9 @@ module.exports = async (variable, variableName, validation) => {
           validation = {};
         }
 
-        await helper.undefinedChecker(variable, variableName);
-        await helper.conditionChecker(variable, variableName, validation.condition);
-        await helper.schemaChecker(variable, variableName, validation.schema);
+        await helpers.undefinedChecker(variable, variableName);
+        await helpers.conditionChecker(variable, variableName, validation.condition);
+        await helpers.schemaChecker(variable, variableName, validation.schema);
 
         resolve();
       } catch (err) {

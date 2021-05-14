@@ -3,7 +3,7 @@
 const { assert } = require('assertthat');
 const path = require('path');
 const Schema = require('validate');
-const variableChecker = require(path.resolve('./src/index'));
+const { checkAsync } = require(path.resolve('./src/index'));
 
 const condition_int = (i) => i > 10;
 const condition_obj = (o) => o.username === 'xyz';
@@ -28,16 +28,16 @@ const schema = {
 	},
 };
 
-describe('variableChecker...', () => {
+describe('checkAsync...', () => {
   it('... is of type function', (done) => {
-    assert.that(variableChecker).is.ofType('function');
+    assert.that(checkAsync).is.ofType('function');
     done();
   });
 
   it('... rejects error if variable is undefined (no variable name given)', (done) => {
     (async () => {
       try {
-        await variableChecker(undefined);
+        await checkAsync(undefined);
       } catch (err) {
         assert.that(err).is.equalTo('Variable "" is undefined!');
         done();
@@ -48,7 +48,7 @@ describe('variableChecker...', () => {
   it('... rejects error if variable is undefined (variable name given)', (done) => {
     (async () => {
       try {
-        await variableChecker(undefined, 'dummy');
+        await checkAsync(undefined, 'dummy');
       } catch (err) {
         assert.that(err).is.equalTo('Variable "dummy" is undefined!');
         done();
@@ -59,7 +59,7 @@ describe('variableChecker...', () => {
   it('... resolves success when variable is not undefined (no condition, no schema)', (done) => {
     (async () => {
       try {
-        await variableChecker(15, 'dummy');
+        await checkAsync(15, 'dummy');
         done();
       } catch (err) {
         throw err;
@@ -70,7 +70,7 @@ describe('variableChecker...', () => {
   it('... rejects error if condition is not a function (no schema)', (done) => {
     (async () => {
       try {
-        await variableChecker(10, 'dummy', { condition: 'This is not a function...' });
+        await checkAsync(10, 'dummy', { condition: 'This is not a function...' });
       } catch (err) {
         assert.that(err).is.equalTo('Given condition for "dummy" is not a function!');
         done();
@@ -81,7 +81,7 @@ describe('variableChecker...', () => {
   it('... rejects error if variable is not fulfilling condition (no schema)', (done) => {
     (async () => {
       try {
-        await variableChecker(10, 'dummy', { condition: condition_int });
+        await checkAsync(10, 'dummy', { condition: condition_int });
       } catch (err) {
         assert.that(err).is.equalTo('Variable "dummy" is invalid (not fulfilling condition)!');
         done();
@@ -92,7 +92,7 @@ describe('variableChecker...', () => {
   it('... resolves success when variable is fulfilling condition (no schema)', (done) => {
     (async () => {
       try {
-        await variableChecker(15, 'dummy', { condition: condition_int });
+        await checkAsync(15, 'dummy', { condition: condition_int });
         done();
       } catch (err) {
         throw err;
@@ -103,7 +103,7 @@ describe('variableChecker...', () => {
   it('... rejects error if schema has no check function (no condition)', (done) => {
     (async () => {
       try {
-        await variableChecker(10, 'dummy', { schema: 'This is not a schema...' });
+        await checkAsync(10, 'dummy', { schema: 'This is not a schema...' });
       } catch (err) {
         assert.that(err).is.equalTo('Given schema for "dummy" does not have a check function!');
         done();
@@ -114,7 +114,7 @@ describe('variableChecker...', () => {
   it('... rejects error if variable is invalid for schema (no condition)', (done) => {
     (async () => {
       try {
-        await variableChecker({}, 'dummy', { schema });
+        await checkAsync({}, 'dummy', { schema });
       } catch (err) {
         assert.that(err).is.equalTo('Variable "dummy" is invalid: Error: "username" is missing!');
         done();
@@ -125,7 +125,7 @@ describe('variableChecker...', () => {
   it('... resolves success when variable is valid for schema (no condition)', (done) => {
     (async () => {
       try {
-        await variableChecker({ username: 'xyz', password: '123' }, 'dummy', { schema });
+        await checkAsync({ username: 'xyz', password: '123' }, 'dummy', { schema });
         done();
       } catch (err) {
         throw err;
@@ -136,7 +136,7 @@ describe('variableChecker...', () => {
   it('... resolves success when variable is fulfilling condition and is valid for schema', (done) => {
     (async () => {
       try {
-        await variableChecker({ username: 'xyz', password: '123' }, 'dummy', { condition: condition_obj, schema });
+        await checkAsync({ username: 'xyz', password: '123' }, 'dummy', { condition: condition_obj, schema });
         done();
       } catch (err) {
         throw err;

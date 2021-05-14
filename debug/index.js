@@ -1,12 +1,12 @@
 'use strict';
 
-const variablechecker = require('../src/index.js');
+const vc = require('../src/index.js');
 
 (async () => {
   try {
     const i = 1;
 
-    await variablechecker(i, 'i');
+    await vc.checkAsync(i, 'i');
 
     console.log('DONE'); // eslint-disable-line no-console
   } catch (err) {

@@ -9,6 +9,36 @@
 
 Simple helper to do variable checks and keep complexity low.
 
+# How to use it
+
+## Samples
+
+``` javascript
+const variableChecker = require('variablechecker');
+
+(async () => {
+  try {
+    const a = 1;
+    await variableChecker.checkAsync(a, 'a'); // This will success
+    
+    const b = undefined;
+    await variableChecker.checkAsync(b, 'b'); // This will fail and rejects an error message
+    
+    const c = 0;
+    const condition = (x) => x >= 0;
+    await variableChecker.checkAsync(c, 'c', { condition }); // This will success
+    
+    const c = -1;
+    const condition = (x) => x >= 0;
+    await variableChecker.checkAsync(c, 'c', { condition }); // This will fail and rejects an error message
+    
+    console.log('DONE');
+  } catch (err) {
+    console.log(err);
+  }
+})();
+```
+
 # Update & Migration
 
 ## 0.1.1 => 1.0.0

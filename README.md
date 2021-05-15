@@ -1,6 +1,9 @@
-# CI Status
+# Pipeline status
 
-[![CircleCI](https://circleci.com/gh/BernhardMaier/variableChecker.svg?style=shield)](https://app.circleci.com/pipelines/github/BernhardMaier/variableChecker)
+- ![ci_main](https://github.com/BernhardMaier/variableChecker/actions/workflows/ci.yml/badge.svg?branch=main)
+- ![cd_main](https://github.com/BernhardMaier/variableChecker/actions/workflows/cd.yml/badge.svg?branch=main)
+- ![code_analysis](https://github.com/BernhardMaier/variableChecker/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)
+- [![CircleCI](https://circleci.com/gh/BernhardMaier/variableChecker.svg?style=shield)](https://app.circleci.com/pipelines/github/BernhardMaier/variableChecker)
 
 # variableChecker
 

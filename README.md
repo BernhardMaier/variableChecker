@@ -1,9 +1,28 @@
-# Pipeline status
+# Badges
+
+## Pipelines
 
 - ![ci_main](https://github.com/BernhardMaier/variableChecker/actions/workflows/ci.yml/badge.svg?branch=main)
 - ![cd_main](https://github.com/BernhardMaier/variableChecker/actions/workflows/cd.yml/badge.svg?branch=main)
 - ![code_analysis](https://github.com/BernhardMaier/variableChecker/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)
-- [![CircleCI](https://circleci.com/gh/BernhardMaier/variableChecker.svg?style=shield)](https://app.circleci.com/pipelines/github/BernhardMaier/variableChecker)
+
+## Code analysis
+
+- ![GitHub language count](https://img.shields.io/github/languages/count/bernhardmaier/variablechecker)
+- ![GitHub top language](https://img.shields.io/github/languages/top/bernhardmaier/variablechecker)
+- ![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/variablechecker)
+
+## Version infos
+
+- ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/BernhardMaier/variableChecker)
+- ![GitHub](https://img.shields.io/github/license/BernhardMaier/variableChecker)
+
+## npm
+
+- ![npm](https://img.shields.io/npm/v/variablechecker)
+- ![npm bundle size](https://img.shields.io/bundlephobia/min/variablechecker)
+- ![npm bundle size](https://img.shields.io/bundlephobia/minzip/variablechecker)
+- ![npm](https://img.shields.io/npm/dw/variablechecker)
 
 # variableChecker
 

@@ -32,6 +32,8 @@ jobs:
     name: Check version
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Check if version has been updated
       id: versioncheck
       uses: EndBug/version-check@v1

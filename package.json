@@ -8,7 +8,9 @@
 		"lint": "gulp lint",
 		"fix": "eslint './service/**' './test/**' --fix",
 		"ri": "rm -rf node_modules && npm i",
-		"tag": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags"
+		"tag": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags",
+		"getName": "echo ::set-output name=PACKAGE_NAME::$(cat package.json | grep name | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]')",
+		"getVersion": "echo ::set-output name=PACKAGE_VERSION::$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]')"
 	},
 	"repository": {
 		"type": "git",

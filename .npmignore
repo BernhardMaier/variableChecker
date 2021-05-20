@@ -1,10 +1,14 @@
-.circleci
+# directories
 .github
 .nyc_output
 .vscode
 coverage
 debug
 doc
+node_modules
 test
+
+# files
 gulpfile.js
 .eslintrc
+package-lock.json

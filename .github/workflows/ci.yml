@@ -10,11 +10,9 @@ jobs:
   build:
     name: Build and test
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x, 14.x, 15.x]
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -30,3 +28,18 @@ jobs:
       run: npm run test
     - name: Run publishing in dry-run mode
       run: npm publish --dry-run
+  versioncheck:
+    name: Check version
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check if version has been updated
+      id: versioncheck
+      uses: EndBug/version-check@v1
+      with:
+        diff-search: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Version not updated
+      if: steps.versioncheck.outputs.changed != 'true'
+      run: 'echo "Version in package.json not updated:/" && exit 1'
+    - name: Version updated
+      run: 'echo Version in package.json updated'

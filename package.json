@@ -41,6 +41,7 @@
 		"validate": "^5.1.0"
 	},
 	"dependencies": {
+		"path-parse": "^1.0.7",
 		"require-dir": "^1.2.0"
 	}
 }

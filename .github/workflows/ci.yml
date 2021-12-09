@@ -36,7 +36,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Check if version has been updated
       id: versioncheck
-      uses: EndBug/version-check@v2.0.1
+      uses: EndBug/version-check@v2.1.0
       with:
         diff-search: true
         token: ${{ secrets.GITHUB_TOKEN }}

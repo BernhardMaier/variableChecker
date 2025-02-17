@@ -35,7 +35,7 @@
 		"assertthat": "^6.0.1",
 		"eslint": "^7.26.0",
 		"gulp": "^4.0.2",
-		"gulp-mocha": "^8.0.0",
+		"gulp-mocha": "^10.0.1",
 		"gulp-shell": "^0.8.0",
 		"nyc": "^15.1.0",
 		"validate": "^5.1.0"
